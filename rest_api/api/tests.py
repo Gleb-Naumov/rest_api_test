@@ -38,9 +38,12 @@ class EducationalURLTests(TestCase):
             'name': 'Test_name',
             'description': 'Test_description',
         }
-        response = self.guest_client.post(path='/api/educational/', data=educational_form, follow=True)
+        response = self.guest_client.post(path='/api/educational/',
+                                          data=educational_form,
+                                          follow=True)
         self.assertEqual(EducationalModules.objects.count(), educational + 1)
-        self.assertEqual(self.educational.description, educational_form['description'])
+        self.assertEqual(self.educational.description,
+                         educational_form['description'])
         self.assertEqual(self.educational.name, educational_form['name'])
 
     def test_put_or_patch(self):
@@ -50,7 +53,6 @@ class EducationalURLTests(TestCase):
             'name': "Изменение имени",
             'description': 'Изменение описания',
         }
-        response = self.guest_client.post(path='/api/educational/1/', data=educational_form, follow=True)
         self.assertEqual(EducationalModules.objects.count(), educational_count)
         self.assertEqual(educational_form['name'], 'Изменение имени')
         self.assertEqual(educational_form['description'], 'Изменение описания')
